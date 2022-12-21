@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 17:57:32 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/20 18:39:58 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/21 13:20:48 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PIPEX_H
@@ -27,8 +27,7 @@ typedef struct s_pipex
 	int		outfile_fd;
 	int		n_cmds;
 	char	*path_env;
-	char	**cmd_name;
-	char	**abs_path;
+	char	**program_path;
 	char	***commands;
 }	t_pipex;
 
