@@ -29,10 +29,10 @@ cleanthis :
 
 fclean : clean
 	rm -f $(NAME)
-	@make clean -C $(LIBFT_PATH)
+	@make fclean -C $(LIBFT_PATH)
 
 debug :
-	gcc -g3 -O1 get_names_and_params.c path_manipulate.c pipex_inits.c validate.c libft/*.c main.c
+	gcc -g3 -o $(NAME) get_names_and_params.c path_manipulate.c pipex_inits.c validate.c libft/*.c main.c
 
 re : fclean all
 	make cleanthis
