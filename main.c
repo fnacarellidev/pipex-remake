@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:32:54 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/20 18:39:30 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/21 14:11:41 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./includes/pipex.h"
@@ -28,7 +28,15 @@ int main(int argc, char **argv, char **envp)
 		}
 		i++;
 	}
-	ft_free_matrix((void **)pipex.cmd_name);
-	ft_free_matrix((void **)pipex.abs_path);
+	i = 0;
+	while (pipex.program_path[i])
+	{
+		ft_putstr(pipex.program_path[i]);
+		write(1, "\n", 1);
+		i++;
+	}
+	/* ft_putstr(pipex.program_path[i]); */
+	/* write(1, "\n", 1); */
+	ft_free_matrix((void **)pipex.program_path);
 	ft_free_spatial_matrix((void ***)pipex.commands);
 }
