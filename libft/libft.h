@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 19:02:44 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/21 13:39:52 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/21 16:23:19 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef LIBFT_H
@@ -83,6 +83,7 @@ void	ft_putnbr_base(long long nbr, char *base);
 void	ft_putchar(char c);
 void	ft_free_matrix(void **matrix);
 void	ft_free_spatial_matrix(void ***matrix);
+void	ft_free_matrix_size_n(void **matrix, int size);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
