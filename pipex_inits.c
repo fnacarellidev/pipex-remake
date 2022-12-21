@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:59:42 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/21 14:16:14 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/21 17:43:45 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./includes/pipex.h"
@@ -18,8 +18,6 @@ static void	where_is(char **splitted_path, t_pipex *pipex);
 
 void	init_pipex(t_pipex *pipex, int argc, char **argv, char **envp)
 {
-	if (envp)
-	{}
 	pipex->n_cmds = argc - 3;
 	pipex->infile_fd = open(argv[1], O_RDONLY);
 	pipex->outfile_fd = open(argv[argc - 1], O_WRONLY | O_TRUNC);
@@ -66,8 +64,6 @@ static void	where_is(char **splitted_path, t_pipex *pipex)
 				free(cmd_to_eval);
 				break ;
 			}
-			else
-				pipex->program_path[i] = NULL;
 			free(cmd_to_eval);
 			j++;
 		}

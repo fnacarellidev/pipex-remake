@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:32:54 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/21 14:11:41 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/21 17:21:13 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./includes/pipex.h"
@@ -14,29 +14,48 @@
 int main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
-	int	i = 0;
-	int	j = 0;
 
 	init_pipex(&pipex, argc, argv, envp);
-	while (i < 2)
+	pipe(pipex.kernel_fd);
+	pipex.pid = fork();
+	if (pipex.pid == 0)
 	{
-		j = 0;
-		while (pipex.commands[i][j])
+		if (pipex.program_path[0] == NULL)
 		{
-			ft_printf("%s\n", pipex.commands[i][j]);
-			j++;
+			ft_printf("%s: command not found\n", pipex.commands[0][0]);
+			ft_free_matrix_size_n((void **)pipex.program_path, pipex.n_cmds);
+			ft_free_spatial_matrix((void ***)pipex.commands);
+			exit(127);
 		}
-		i++;
+		dup2(pipex.infile_fd, 0);
+		dup2(pipex.kernel_fd[1], 1);
+		close(pipex.infile_fd);
+		close(pipex.kernel_fd[0]);
+		close(pipex.kernel_fd[1]);
+		execve(pipex.program_path[0], pipex.commands[0], NULL);
 	}
-	i = 0;
-	while (pipex.program_path[i])
+	waitpid(pipex.pid, NULL, 0);
+	pipex.pid = fork();
+	if (pipex.pid == 0)
 	{
-		ft_putstr(pipex.program_path[i]);
-		write(1, "\n", 1);
-		i++;
+		if (pipex.program_path[1] == NULL)
+		{
+			ft_printf("%s: command not found\n", pipex.commands[1][0]);
+			ft_free_matrix_size_n((void **)pipex.program_path, pipex.n_cmds);
+			ft_free_spatial_matrix((void ***)pipex.commands);
+			exit(127);
+		}
+		dup2(pipex.kernel_fd[0], 0);
+		dup2(pipex.outfile_fd, 1);
+		close(pipex.outfile_fd);
+		close(pipex.kernel_fd[0]);
+		close(pipex.kernel_fd[1]);
+		execve(pipex.program_path[1], pipex.commands[1], NULL);
 	}
-	/* ft_putstr(pipex.program_path[i]); */
-	/* write(1, "\n", 1); */
-	ft_free_matrix((void **)pipex.program_path);
+	close(pipex.infile_fd);
+	close(pipex.outfile_fd);
+	close(pipex.kernel_fd[0]);
+	close(pipex.kernel_fd[1]);
+	ft_free_matrix_size_n((void **)pipex.program_path, pipex.n_cmds);
 	ft_free_spatial_matrix((void ***)pipex.commands);
 }
