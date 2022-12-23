@@ -6,10 +6,11 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:59:42 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/21 17:43:45 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/23 17:43:40 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./includes/pipex.h"
+#include "libft/libft.h"
 
 static char	*get_path_env(char **envp);
 static void	set_cmds(t_pipex *pipex, char **argv);
@@ -100,15 +101,24 @@ static void	set_cmds(t_pipex *pipex, char **argv)
 	while (i < pipex->n_cmds)
 	{
 		j = 0;
-		split = ft_split(argv[2 + i], ' ');
-		split_len = ft_count_matrix((void **)split);
-		pipex->commands[i] = ft_calloc(sizeof(char *), split_len + 1);
-		while (split[j] != NULL)
+		if (ft_strchr(argv[2 + i], '\''))
 		{
-			pipex->commands[i][j] = ft_strdup(split[j]);
-			j++;
+			treat_quotes(argv[2 + i], pipex->commands, i);
+			/* pipex->commands[i][2][0] = ' '; */
+			/* pipex->commands[i][2][1] = '\0'; */
 		}
-		ft_free_matrix((void **)split);
+		else
+		{
+			split = ft_split(argv[2 + i], ' ');
+			split_len = ft_count_matrix((void **)split);
+			pipex->commands[i] = ft_calloc(sizeof(char *), split_len + 1);
+			while (split[j] != NULL)
+			{
+				pipex->commands[i][j] = ft_strdup(split[j]);
+				j++;
+			}
+			ft_free_matrix((void **)split);
+		}
 		i++;
 	}
 }
