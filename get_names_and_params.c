@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:11:07 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/20 15:10:13 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/26 15:35:06 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./includes/pipex.h"
@@ -43,7 +43,6 @@ char	**get_flags_from_cmd(char *cmd)
 			splitted_flags = ft_split(flags, 39);
 		else
 			splitted_flags = ft_split(flags, ' ');
-
 		free(flags);
 		return (splitted_flags);
 	}

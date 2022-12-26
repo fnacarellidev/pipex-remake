@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:59:42 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/26 13:01:42 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/26 15:43:52 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./includes/pipex.h"
@@ -56,17 +56,20 @@ static void	where_is(char **splitted_path, t_pipex *pipex)
 	while (i < pipex->n_cmds)
 	{
 		j = 0;
-		while (splitted_path[j] != NULL)
+		if (pipex->commands[i][0])
 		{
-			cmd_to_eval = ft_strjoin(splitted_path[j], pipex->commands[i][0]);
-			if (access(cmd_to_eval, F_OK | X_OK) == 0)
+			while (splitted_path[j] != NULL)
 			{
-				pipex->program_path[i] = ft_strdup(cmd_to_eval);
+				cmd_to_eval = ft_strjoin(splitted_path[j], pipex->commands[i][0]);
+				if (access(cmd_to_eval, F_OK | X_OK) == 0)
+				{
+					pipex->program_path[i] = ft_strdup(cmd_to_eval);
+					free(cmd_to_eval);
+					break ;
+				}
 				free(cmd_to_eval);
-				break ;
+				j++;
 			}
-			free(cmd_to_eval);
-			j++;
 		}
 		i++;
 	}
@@ -102,11 +105,7 @@ static void	set_cmds(t_pipex *pipex, char **argv)
 	{
 		j = 0;
 		if (ft_strchr(argv[2 + i], '\''))
-		{
 			treat_quotes(argv[2 + i], pipex->commands, i);
-			/* pipex->commands[i][2][0] = ' '; */
-			/* pipex->commands[i][2][1] = '\0'; */
-		}
 		else
 		{
 			split = ft_split(argv[2 + i], ' ');

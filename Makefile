@@ -1,7 +1,7 @@
 NAME = pipex
 LIBPIPEX = libpipex.a
 SRCS = validate.c pipex_inits.c path_manipulate.c \
-	   get_names_and_params.c treat_quotes.c
+	   get_names_and_params.c treat_quotes.c pipex_mandatory.c
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 LIBFT_PATH = ./libft
 PATH_LIBS = -L$(LIBFT_PATH)
@@ -12,7 +12,7 @@ all : $(NAME)
 
 $(NAME) : $(LIBPIPEX)
 	@make -C $(LIBFT_PATH) --no-print-directory
-	cc $(FLAGS) $(OBJS) -o $(NAME) main.c $(PATH_LIBS) $(LIBS)
+	cc $(FLAGS) $(OBJS) -o $(NAME) $(PATH_LIBS) $(LIBS)
 	make cleanthis
 
 $(LIBPIPEX): $(OBJS)

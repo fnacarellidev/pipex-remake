@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:32:54 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/26 12:57:33 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/26 14:55:42 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./includes/pipex.h"
@@ -15,6 +15,7 @@ int main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 
+	validate_files(argc, argv);
 	init_pipex(&pipex, argc, argv, envp);
 	pipe(pipex.kernel_fd);
 	pipex.pid = fork();
