@@ -6,13 +6,14 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 22:49:36 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/23 00:11:04 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/26 13:04:36 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./includes/pipex.h"
 #include "libft/libft.h"
 
 char	*replace_c1_between_c2(char *str, char c1, char c2, char c3);
+void	remove_single_quotes(char **commands);
 void	fix_splitted_string(char **splitted_str, char char_to_fix);
 
 void	treat_quotes(char *str, char ***commands, int index)
@@ -34,8 +35,29 @@ void	treat_quotes(char *str, char ***commands, int index)
 		free(splitted_str[i]);
 		i++;
 	}
+	remove_single_quotes(commands[index]);
 	free(splitted_str);
 	free(replaced_string);
+}
+
+void	remove_single_quotes(char **commands)
+{
+	int		i;
+	char	*store_prev_addr;
+	size_t	len_str;
+
+	i = 0;
+	while (commands[i])
+	{
+		len_str = ft_strlen(commands[i]);
+		if (commands[i][0] == '\'' && commands[i][len_str - 1] == '\'')
+		{
+			store_prev_addr = commands[i];
+			commands[i] = ft_substr(commands[i], 1, len_str - 2);
+			free(store_prev_addr);
+		}
+		i++;
+	}
 }
 
 void	fix_splitted_string(char **splitted_str, char char_to_fix)

@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 17:32:54 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/21 17:21:13 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/26 12:57:33 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./includes/pipex.h"
@@ -56,6 +56,13 @@ int main(int argc, char **argv, char **envp)
 	close(pipex.outfile_fd);
 	close(pipex.kernel_fd[0]);
 	close(pipex.kernel_fd[1]);
+	if (pipex.program_path[1] == NULL)
+	{
+		ft_free_matrix_size_n((void **)pipex.program_path, pipex.n_cmds);
+		ft_free_spatial_matrix((void ***)pipex.commands);
+		return (127);
+	}
 	ft_free_matrix_size_n((void **)pipex.program_path, pipex.n_cmds);
 	ft_free_spatial_matrix((void ***)pipex.commands);
+	return (0);
 }
