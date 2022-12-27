@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:25:17 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/27 16:43:19 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/27 16:48:57 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "includes/pipex.h"
@@ -27,8 +27,8 @@ int	main(int argc, char **argv, char **envp)
 	init_pipex(&pipex, argc, argv, envp);
 	pipe(pipex.kernel_fd);
 	run_first_cmd(&pipex, envp);
-	waitpid(-1, NULL, 0);
 	run_second_cmd(&pipex, envp);
+	waitpid(-1, NULL, 0);
 	return_code = quit_program(&pipex);
 	return (return_code);
 }
