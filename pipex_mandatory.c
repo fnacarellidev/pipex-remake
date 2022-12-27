@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:25:17 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/26 15:50:25 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/27 16:43:19 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "includes/pipex.h"
@@ -14,8 +14,8 @@
 #include <sys/wait.h>
 
 static int	quit_program(t_pipex *pipex);
-static void	run_first_cmd(t_pipex *pipex);
-static void	run_second_cmd(t_pipex *pipex);
+static void	run_first_cmd(t_pipex *pipex, char **envp);
+static void	run_second_cmd(t_pipex *pipex, char **envp);
 static void	print_err(char *str);
 
 int	main(int argc, char **argv, char **envp)
@@ -26,14 +26,14 @@ int	main(int argc, char **argv, char **envp)
 	validate_files(argc, argv);
 	init_pipex(&pipex, argc, argv, envp);
 	pipe(pipex.kernel_fd);
-	run_first_cmd(&pipex);
+	run_first_cmd(&pipex, envp);
 	waitpid(-1, NULL, 0);
-	run_second_cmd(&pipex);
+	run_second_cmd(&pipex, envp);
 	return_code = quit_program(&pipex);
 	return (return_code);
 }
 
-static void	run_first_cmd(t_pipex *pipex)
+static void	run_first_cmd(t_pipex *pipex, char **envp)
 {
 	pipex->pid = fork();
 	if (pipex->pid == 0)
@@ -50,7 +50,7 @@ static void	run_first_cmd(t_pipex *pipex)
 		close(pipex->infile_fd);
 		close(pipex->kernel_fd[0]);
 		close(pipex->kernel_fd[1]);
-		execve(pipex->program_path[0], pipex->commands[0], NULL);
+		execve(pipex->program_path[0], pipex->commands[0], envp);
 	}
 }
 
@@ -61,7 +61,7 @@ static void	print_err(char *str)
 	return ;
 }
 
-static void	run_second_cmd(t_pipex *pipex)
+static void	run_second_cmd(t_pipex *pipex, char **envp)
 {
 	pipex->pid = fork();
 	if (pipex->pid == 0)
@@ -78,7 +78,7 @@ static void	run_second_cmd(t_pipex *pipex)
 		close(pipex->outfile_fd);
 		close(pipex->kernel_fd[0]);
 		close(pipex->kernel_fd[1]);
-		execve(pipex->program_path[1], pipex->commands[1], NULL);
+		execve(pipex->program_path[1], pipex->commands[1], envp);
 	}
 }
 
