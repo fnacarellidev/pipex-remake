@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:59:42 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/26 15:43:52 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/27 15:45:10 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./includes/pipex.h"
@@ -15,7 +15,7 @@
 static char	*get_path_env(char **envp);
 static void	set_cmds(t_pipex *pipex, char **argv);
 static void	set_program_path(t_pipex *pipex, char **envp);
-static void	where_is(char **splitted_path, t_pipex *pipex);
+static void	where_is(char **splitted_path, t_pipex *pipex, int i);
 
 void	init_pipex(t_pipex *pipex, int argc, char **argv, char **envp)
 {
@@ -37,42 +37,45 @@ static void	set_program_path(t_pipex *pipex, char **envp)
 {
 	char	*path_env_var;
 	char	**splitted_path_env;
+	int		i;
 
+	i = 0;
 	path_env_var = get_path_env(envp);
 	splitted_path_env = ft_split(path_env_var, ':');
 	free(path_env_var);
 	format_splitted_path_env(splitted_path_env);
-	where_is(splitted_path_env, pipex);
+	while (i < pipex->n_cmds)
+	{
+		where_is(splitted_path_env, pipex, i);
+		i++;
+	}
 	ft_free_matrix((void **)splitted_path_env);
 }
 
-static void	where_is(char **splitted_path, t_pipex *pipex)
+static void	where_is(char **splitted_path, t_pipex *pipex, int i)
 {
-	int		i;
 	int		j;
 	char	*cmd_to_eval;
 
-	i = 0;
-	while (i < pipex->n_cmds)
+	j = 0;
+	if (pipex->commands[i][0])
 	{
-		j = 0;
-		if (pipex->commands[i][0])
+		while (splitted_path[j] != NULL)
 		{
-			while (splitted_path[j] != NULL)
+			cmd_to_eval = ft_strjoin(splitted_path[j], pipex->commands[i][0]);
+			if (access(cmd_to_eval, F_OK | X_OK) == 0)
 			{
-				cmd_to_eval = ft_strjoin(splitted_path[j], pipex->commands[i][0]);
-				if (access(cmd_to_eval, F_OK | X_OK) == 0)
-				{
-					pipex->program_path[i] = ft_strdup(cmd_to_eval);
-					free(cmd_to_eval);
-					break ;
-				}
+				pipex->program_path[i] = ft_strdup(cmd_to_eval);
 				free(cmd_to_eval);
-				j++;
+				break ;
 			}
+			free(cmd_to_eval);
+			j++;
 		}
-		i++;
 	}
+	if (access(pipex->commands[i][0], F_OK | X_OK) == 0 \
+			&& ft_strchr(pipex->commands[i][0], 47))
+		pipex->program_path[i] = ft_strdup(pipex->commands[i][0]);
 }
 
 static char	*get_path_env(char **envp)
