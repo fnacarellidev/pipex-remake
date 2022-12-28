@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:59:42 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/27 15:45:10 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/28 15:47:35 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./includes/pipex.h"
@@ -21,7 +21,7 @@ void	init_pipex(t_pipex *pipex, int argc, char **argv, char **envp)
 {
 	pipex->n_cmds = argc - 3;
 	pipex->infile_fd = open(argv[1], O_RDONLY);
-	pipex->outfile_fd = open(argv[argc - 1], O_WRONLY | O_TRUNC);
+	pipex->outfile_fd = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (pipex->infile_fd == -1 || pipex->outfile_fd == -1)
 	{
 		ft_printf("Failed to open one of the files, please try again.\n");
