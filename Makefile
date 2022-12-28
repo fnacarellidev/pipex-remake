@@ -1,7 +1,7 @@
 NAME = pipex
 LIBPIPEX = libpipex.a
 SRCS = validate.c pipex_inits.c path_manipulate.c \
-	   get_names_and_params.c treat_quotes.c pipex_mandatory.c
+	   get_names_and_params.c treat_quotes.c pipex_mandatory.c err_handler.c
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 LIBFT_PATH = ./libft
 PATH_LIBS = -L$(LIBFT_PATH)
