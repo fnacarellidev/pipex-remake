@@ -6,10 +6,10 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 18:44:24 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/09 22:15:32 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/29 13:56:52 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "./includes/pipex.h"
+#include "../includes/pipex.h"
 
 static char	*del_at_start_of_str(char *str, char *str_to_del);
 static char	*add_char_at_end_of_str(char *str, char c);

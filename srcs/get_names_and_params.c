@@ -6,10 +6,10 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:11:07 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/26 15:35:06 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/29 13:56:45 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "./includes/pipex.h"
+#include "../includes/pipex.h"
 
 char	*set_cmd_name(char *cmd)
 {

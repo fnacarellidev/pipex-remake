@@ -1,12 +1,17 @@
 NAME = pipex
 LIBPIPEX = libpipex.a
-SRCS = validate.c pipex_inits.c path_manipulate.c \
-	   get_names_and_params.c treat_quotes.c pipex_mandatory.c err_handler.c
-OBJS = $(patsubst %.c, %.o, $(SRCS))
+SRCS = srcs/validate.c \
+	   srcs/pipex_inits.c \
+	   srcs/path_manipulate.c \
+	   srcs/get_names_and_params.c \
+	   srcs/treat_quotes.c \
+	   srcs/pipex_mandatory.c \
+	   srcs/err_handler.c
 LIBFT_PATH = ./libft
 PATH_LIBS = -L$(LIBFT_PATH)
 LIBS = -lft
 FLAGS = -Wall -Wextra -Werror -g3
+OBJS = $(SRCS:%.c=%.o)
 
 all : $(NAME)
 
@@ -17,8 +22,8 @@ $(NAME) : $(LIBPIPEX)
 $(LIBPIPEX): $(OBJS)
 	ar rcs $(LIBPIPEX) $(OBJS)
 
-$(OBJS) : $(SRCS)
-	@cc $(FLAGS) -I ./includes -c $(SRCS)
+%.o:%.c
+	@cc $(FLAGS) -I ./includes -c $< -o $@
 
 clean :
 	rm -f $(OBJS)

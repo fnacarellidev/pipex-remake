@@ -6,11 +6,10 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:25:17 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/29 12:13:29 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/29 13:59:10 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "includes/pipex.h"
-#include <stdlib.h>
+#include "../includes/pipex.h"
 
 static void	close_fds(t_pipex *pipex);
 static int	quit_program(t_pipex *pipex, int status);

@@ -6,10 +6,10 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 18:25:36 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/29 12:26:55 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/29 13:59:28 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "./includes/pipex.h"
+#include "../includes/pipex.h"
 
 static void	check_if_infile_is_valid(char **argv, char **envp);
 

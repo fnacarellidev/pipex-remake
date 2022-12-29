@@ -6,10 +6,10 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 22:49:36 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/29 10:59:59 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/29 13:59:20 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "./includes/pipex.h"
+#include "../includes/pipex.h"
 
 static void	remove_single_quotes(char **commands);
 static void	fix_splitted_string(char **splitted_str, char char_to_fix);

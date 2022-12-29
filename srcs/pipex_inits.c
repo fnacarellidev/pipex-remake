@@ -6,10 +6,10 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:59:42 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/29 11:11:05 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/29 13:57:03 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "./includes/pipex.h"
+#include "../includes/pipex.h"
 
 static char	*get_path_env(char **envp);
 static void	set_cmds(t_pipex *pipex, char **argv);
