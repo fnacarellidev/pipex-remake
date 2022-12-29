@@ -6,45 +6,44 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 22:49:36 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/26 13:04:36 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/29 10:59:59 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./includes/pipex.h"
-#include "libft/libft.h"
 
-char	*replace_c1_between_c2(char *str, char c1, char c2, char c3);
-void	remove_single_quotes(char **commands);
-void	fix_splitted_string(char **splitted_str, char char_to_fix);
+static void	remove_single_quotes(char **commands);
+static void	fix_splitted_string(char **splitted_str, char char_to_fix);
+static char	*replace_c1_between_c2(char *str, char c1, char c2, char c3);
 
-void	treat_quotes(char *str, char ***commands, int index)
+void	treat_quotes(char *str, char ***commands)
 {
 	int		i;
 	int		matr_size;
-	char	*replaced_string;
 	char	**splitted_str;
+	char	*replaced_string;
 
 	replaced_string = replace_c1_between_c2(str, ' ', '\'', '[');
 	splitted_str = ft_split(replaced_string, ' ');
 	fix_splitted_string(splitted_str, '[');
 	matr_size = ft_count_matrix((void **)splitted_str);
-	commands[index] = ft_calloc(sizeof(char *), matr_size + 1);
+	*commands = ft_calloc(sizeof(char *), matr_size + 1);
 	i = 0;
 	while (splitted_str[i])
 	{
-		commands[index][i] = ft_strdup(splitted_str[i]);
+		(*commands)[i] = ft_strdup(splitted_str[i]);
 		free(splitted_str[i]);
 		i++;
 	}
-	remove_single_quotes(commands[index]);
+	remove_single_quotes(*commands);
 	free(splitted_str);
 	free(replaced_string);
 }
 
-void	remove_single_quotes(char **commands)
+static void	remove_single_quotes(char **commands)
 {
 	int		i;
-	char	*store_prev_addr;
 	size_t	len_str;
+	char	*store_prev_addr;
 
 	i = 0;
 	while (commands[i])
@@ -60,7 +59,7 @@ void	remove_single_quotes(char **commands)
 	}
 }
 
-void	fix_splitted_string(char **splitted_str, char char_to_fix)
+static void	fix_splitted_string(char **splitted_str, char char_to_fix)
 {
 	int	i;
 	int	j;
@@ -79,7 +78,7 @@ void	fix_splitted_string(char **splitted_str, char char_to_fix)
 	}
 }
 
-char	*replace_c1_between_c2(char *str, char c1, char c2, char c3)
+static char	*replace_c1_between_c2(char *str, char c1, char c2, char c3)
 {
 	int		i;
 	char	*str_modified;
