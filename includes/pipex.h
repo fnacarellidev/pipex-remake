@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 17:57:32 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/29 10:58:13 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/29 11:58:16 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PIPEX_H
@@ -15,9 +15,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
-# include <stdio.h>
-# include <errno.h>
-# include <string.h>
 # include <sys/wait.h>
 
 typedef struct s_pipex

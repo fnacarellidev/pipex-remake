@@ -13,7 +13,6 @@ all : $(NAME)
 $(NAME) : $(LIBPIPEX)
 	@make -C $(LIBFT_PATH) --no-print-directory
 	cc $(FLAGS) $(OBJS) -o $(NAME) $(PATH_LIBS) $(LIBS)
-	make cleanthis
 
 $(LIBPIPEX): $(OBJS)
 	ar rcs $(LIBPIPEX) $(OBJS)
@@ -21,20 +20,14 @@ $(LIBPIPEX): $(OBJS)
 $(OBJS) : $(SRCS)
 	@cc $(FLAGS) -I ./includes -c $(SRCS)
 
-clean : cleanthis
-	@make clean -C $(LIBFT_PATH)
-
-cleanthis :
-	rm -f $(OBJS) $(LIBPIPEX)
+clean :
+	rm -f $(OBJS)
+	@make clean -C $(LIBFT_PATH) --no-print-directory
 
 fclean : clean
-	rm -f $(NAME)
-	@make fclean -C $(LIBFT_PATH)
-
-debug :
-	gcc -g3 -o $(NAME) get_names_and_params.c path_manipulate.c treat_quotes.c pipex_inits.c validate.c libft/*.c main.c
+	rm -f $(NAME) $(LIBPIPEX)
+	@make fclean -C $(LIBFT_PATH) --no-print-directory
 
 re : fclean all
-	make cleanthis
 
 .PHONY : all clean fclean re

@@ -6,13 +6,14 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:25:17 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/29 11:12:15 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/29 12:13:29 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "includes/pipex.h"
+#include <stdlib.h>
 
 static void	close_fds(t_pipex *pipex);
-static int	quit_program(t_pipex *pipex);
+static int	quit_program(t_pipex *pipex, int status);
 static void	run_first_cmd(t_pipex *pipex, char **envp);
 static void	run_second_cmd(t_pipex *pipex, char **envp);
 
@@ -20,6 +21,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
 	int		return_code;
+	int		status;
 
 	validate_files(argc, argv, envp);
 	init_pipex(&pipex, argc, argv, envp);
@@ -35,8 +37,8 @@ int	main(int argc, char **argv, char **envp)
 	close(pipex.outfile_fd);
 	if (pipex.infile_fd != -1)
 		wait(NULL);
-	wait(NULL);
-	return_code = quit_program(&pipex);
+	wait(&status);
+	return_code = quit_program(&pipex, status);
 	return (return_code);
 }
 
@@ -78,7 +80,7 @@ static void	run_second_cmd(t_pipex *pipex, char **envp)
 	}
 }
 
-static int	quit_program(t_pipex *pipex)
+static int	quit_program(t_pipex *pipex, int status)
 {
 	if (pipex->program_path[0] == NULL)
 	{
@@ -95,6 +97,8 @@ static int	quit_program(t_pipex *pipex)
 	}
 	ft_free_matrix_size_n((void **)pipex->program_path, pipex->n_cmds);
 	ft_free_spatial_matrix((void ***)pipex->commands);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
 	return (0);
 }
 
