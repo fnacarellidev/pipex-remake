@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:59:42 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/28 15:47:35 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/29 10:51:15 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./includes/pipex.h"
@@ -21,10 +21,11 @@ void	init_pipex(t_pipex *pipex, int argc, char **argv, char **envp)
 {
 	pipex->n_cmds = argc - 3;
 	pipex->infile_fd = open(argv[1], O_RDONLY);
-	pipex->outfile_fd = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (pipex->infile_fd == -1 || pipex->outfile_fd == -1)
+	pipex->outfile_fd = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC,
+			0644);
+	if (pipex->outfile_fd == -1)
 	{
-		ft_printf("Failed to open one of the files, please try again.\n");
+		ft_printf("Failed to open/create outfile.\n");
 		exit(1);
 	}
 	pipex->commands = ft_calloc(sizeof(char **), pipex->n_cmds + 1);
@@ -35,9 +36,9 @@ void	init_pipex(t_pipex *pipex, int argc, char **argv, char **envp)
 
 static void	set_program_path(t_pipex *pipex, char **envp)
 {
+	int		i;
 	char	*path_env_var;
 	char	**splitted_path_env;
-	int		i;
 
 	i = 0;
 	path_env_var = get_path_env(envp);
@@ -100,15 +101,15 @@ static void	set_cmds(t_pipex *pipex, char **argv)
 {
 	int		i;
 	int		j;
-	int		split_len;
 	char	**split;
+	int		split_len;
 
 	i = 0;
 	while (i < pipex->n_cmds)
 	{
 		j = 0;
 		if (ft_strchr(argv[2 + i], '\''))
-			treat_quotes(argv[2 + i], pipex->commands, i);
+			treat_quotes(argv[2 + i], &(pipex->commands[i]));
 		else
 		{
 			split = ft_split(argv[2 + i], ' ');
