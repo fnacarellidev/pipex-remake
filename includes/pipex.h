@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 17:57:32 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/28 17:42:32 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/29 10:58:13 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PIPEX_H
@@ -32,11 +32,11 @@ typedef struct s_pipex
 	char	***commands;
 }	t_pipex;
 
-void	treat_quotes(char *str, char ***commands, int index);
 char	*set_cmd_name(char *cmd);
-int		validate_files(int argc, char **argv, char **envp);
 char	*set_err_msg(char **envp, char *suffix);
+void	treat_quotes(char *str, char ***commands);
 void	format_splitted_path_env(char **splitted_env);
+void	validate_files(int argc, char **argv, char **envp);
 void	init_pipex(t_pipex *pipex, int argc, char **argv, char **envp);
 
 #endif
