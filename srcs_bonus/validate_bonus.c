@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 15:58:24 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/29 16:59:04 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/30 18:39:31 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/pipex_bonus.h"
@@ -27,21 +27,24 @@ static void	check_if_infile_is_valid(char **argv, char **envp)
 	char	*err;
 	char	*suffix;
 
-	if (access(argv[1], F_OK) == -1)
+	if (ft_strcmp(argv[1], "here_doc") != 0)
 	{
-		suffix = ft_strjoin(" no such file or directory: ", argv[1]);
-		err = set_err_msg(envp, suffix);
-		ft_printf("%s\n", err);
-		free(err);
-		free(suffix);
-	}
-	else if (access(argv[1], R_OK) == -1)
-	{
-		suffix = ft_strjoin(" permission denied: ", argv[1]);
-		err = set_err_msg(envp, suffix);
-		ft_printf("%s\n", err);
-		free(err);
-		free(suffix);
+		if (access(argv[1], F_OK) == -1)
+		{
+			suffix = ft_strjoin(" no such file or directory: ", argv[1]);
+			err = set_err_msg(envp, suffix);
+			ft_printf("%s\n", err);
+			free(err);
+			free(suffix);
+		}
+		else if (access(argv[1], R_OK) == -1)
+		{
+			suffix = ft_strjoin(" permission denied: ", argv[1]);
+			err = set_err_msg(envp, suffix);
+			ft_printf("%s\n", err);
+			free(err);
+			free(suffix);
+		}
 	}
 }
 
