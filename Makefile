@@ -1,6 +1,7 @@
 NAME = pipex
 LIBFT = libft/libft.a
 LIBPIPEX = libpipex.a
+LIBGNL = 42-get-next-line/libgnl.a
 LIBBONUS = libpipexbonus.a
 SRCS = srcs/validate.c \
 	   srcs/pipex_inits.c \
@@ -16,9 +17,10 @@ BONUS_SRCS = srcs_bonus/pipex_bonus.c \
 			 srcs_bonus/run_cmds_bonus.c \
 			 srcs_bonus/path_manipulate_bonus.c
 
-LIBFT_PATH = ./libft
-PATH_LIBS = -L$(LIBFT_PATH)
+LIBFT_PATH = ./libft/
+GNL_PATH = ./42-get-next-line/
 LIBS = -lft
+LIBS_BONUS = -lft -lgnl
 FLAGS = -Wall -Wextra -Werror -g3
 OBJS = $(SRCS:%.c=%.o)
 BONUS_OBJS = $(BONUS_SRCS:%.c=%.o)
@@ -28,8 +30,11 @@ all : $(NAME)
 libft : 
 	make -C ./libft
 
+gnl :
+	make -C ./42-get-next-line/
+
 $(NAME) : $(LIBPIPEX) | $(LIBFT)
-	cc $(FLAGS) $(LIBPIPEX) -o $(NAME) $(PATH_LIBS) $(LIBS) 
+	cc $(FLAGS) $(LIBPIPEX) -o $(NAME) -L./libft/ $(LIBS) 
 
 $(LIBFT):
 	make -C $(LIBFT_PATH) --no-print-directory
@@ -40,11 +45,11 @@ $(LIBPIPEX): $(OBJS)
 %.o:%.c
 	@cc $(FLAGS) -I ./includes -c $< -o $@
 
-bonus: libft $(LIBBONUS)
+bonus: libft gnl $(LIBBONUS)
 
-$(LIBBONUS): $(BONUS_OBJS) $(LIBFT)
+$(LIBBONUS): $(BONUS_OBJS) $(LIBFT) $(LIBGNL)
 	ar rcs $(LIBBONUS) $(BONUS_OBJS)
-	cc $(FLAGS) $(LIBBONUS) -o $(NAME) $(PATH_LIBS) $(LIBS) 
+	cc $(FLAGS) $(LIBBONUS) -o $(NAME) -L./libft/ -L./42-get-next-line/ $(LIBS_BONUS) 
 
 clean :
 	rm -f $(OBJS)
@@ -57,4 +62,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : all clean fclean re libft
+.PHONY : all clean fclean re libft gnl
