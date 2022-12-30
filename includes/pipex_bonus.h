@@ -6,12 +6,13 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 15:58:54 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/29 17:38:47 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/30 18:55:18 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef	PIPEX_BONUS_H
 # define PIPEX_BONUS_H
 # include "../libft/libft.h"
+# include "../42-get-next-line/get_next_line.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
