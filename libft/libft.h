@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 19:02:44 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/21 16:23:19 by fnacarel         ###   ########.fr       */
+/*   Updated: 2022/12/30 18:55:40 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef LIBFT_H
@@ -24,6 +24,7 @@
 # define HEX_LWCASE "0123456789abcdef"
 # define HEX_UPCASE "0123456789ABCDEF"
 # define DEC_DIGITS "0123456789"
+# define BUFFER_SIZE 10000
 
 // ft_printf stuff
 int		ft_printf(const char *str, ...);
@@ -52,6 +53,7 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 int		ft_atoi(const char *nptr);
 int		ft_lstsize(t_list *lst);
 int		ft_count_matrix(void **matrix);
+int		ft_strcmp(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);
 char	*ft_strrchr(const char *s, int c);

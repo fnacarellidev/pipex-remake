@@ -10,7 +10,7 @@ CFILES = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 		 ft_strmapi.c ft_itoa.c ft_putnbr_fd.c  ft_strtrim.c ft_split.c \
 		 ft_putstr.c ft_putchar.c ft_putnbr_base.c ft_printf_utils.c \
 		 ft_printf.c ft_count_matrix.c ft_free_matrix.c \
-		 ft_free_spatial_matrix.c ft_free_matrix_size_n.c
+		 ft_free_spatial_matrix.c ft_free_matrix_size_n.c ft_strcmp.c
 
 OBJS = ft_isalpha.o ft_isdigit.o ft_isalnum.o ft_isascii.o \
 		 ft_isprint.o ft_strlen.o ft_memset.o ft_bzero.o ft_memmove.o \
@@ -21,7 +21,7 @@ OBJS = ft_isalpha.o ft_isdigit.o ft_isalnum.o ft_isascii.o \
 		 ft_strmapi.o ft_itoa.o ft_putnbr_fd.o ft_strtrim.o ft_split.o \
 		 ft_putstr.o ft_putchar.o ft_putnbr_base.o ft_printf.o ft_printf_utils.o \
 		 ft_count_matrix.o ft_free_matrix.o ft_free_spatial_matrix.o \
-		 ft_free_matrix_size_n.o
+		 ft_free_matrix_size_n.o ft_strcmp.o
 	   
 BONUS_FILES = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
 			  ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
