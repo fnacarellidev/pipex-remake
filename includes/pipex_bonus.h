@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/07 17:57:32 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/29 16:00:15 by fnacarel         ###   ########.fr       */
+/*   Created: 2022/12/29 15:58:54 by fnacarel          #+#    #+#             */
+/*   Updated: 2022/12/29 17:38:47 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef	PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 # include "../libft/libft.h"
 # include <unistd.h>
 # include <fcntl.h>
@@ -22,7 +22,7 @@ typedef struct s_pipex
 	pid_t	pid;
 	int		infile_fd;
 	int		outfile_fd;
-	int		kernel_fd[2];
+	int		kernel_fd[128][2];
 	int		n_cmds;
 	char	*path_env;
 	char	**program_path;
@@ -32,7 +32,10 @@ typedef struct s_pipex
 char	*set_err_msg(char **envp, char *suffix);
 void	treat_quotes(char *str, char ***commands);
 void	format_splitted_path_env(char **splitted_env);
-void	validate_files(int argc, char **argv, char **envp);
+void	validate_input(int argc, char **argv, char **envp);
 void	init_pipex(t_pipex *pipex, int argc, char **argv, char **envp);
+void	run_first_cmd(t_pipex *pipex, char **envp);
+void	run_n_cmd(t_pipex *pipex, char **envp, int i);
+void	run_last_cmd(t_pipex *pipex, char **envp, int i);
 
 #endif
