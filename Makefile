@@ -25,15 +25,16 @@ FLAGS = -Wall -Wextra -Werror -g3
 OBJS = $(SRCS:%.c=%.o)
 BONUS_OBJS = $(BONUS_SRCS:%.c=%.o)
 
-all : $(NAME)
+all : | libft
 
 libft : 
 	make -C ./libft
+	make $(NAME)
 
 gnl :
 	make -C ./42-get-next-line/
 
-$(NAME) : $(LIBPIPEX) | $(LIBFT)
+$(NAME) : $(LIBPIPEX) $(LIBFT)
 	cc $(FLAGS) $(LIBPIPEX) -o $(NAME) -L./libft/ $(LIBS) 
 
 $(LIBFT):
