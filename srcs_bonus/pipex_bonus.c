@@ -6,31 +6,28 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 14:13:45 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/30 19:59:00 by fnacarel         ###   ########.fr       */
+/*   Updated: 2023/01/02 14:50:29 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/pipex_bonus.h"
 #include <unistd.h>
 
 static void	print_not_found_cmds(t_pipex pipex);
-static int	no_heredoc(int argc, char **argv, char **envp);
-static int	heredoc_pipex(char **argv);
+static int	r_pipex(int argc, char **argv, char **envp);
+int			copy_stdin_to_tmpfile(char **argv);
 
 int	main(int argc, char **argv, char **envp)
 {
 	int	ret_code;
 
 	validate_input(argc, argv, envp);
-	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
-		ret_code = heredoc_pipex(argv);
-	else
-		ret_code = no_heredoc(argc, argv, envp);
+	ret_code = r_pipex(argc, argv, envp);
 	return (ret_code);
 }
 
-static int	heredoc_pipex(char **argv)
+int	copy_stdin_to_tmpfile(char **argv)
 {
-	int 	tempfile;
+	int		tempfile;
 	char	*gnl_ret;
 	char	*argv_with_nl;
 
@@ -50,10 +47,12 @@ static int	heredoc_pipex(char **argv)
 		write(tempfile, gnl_ret, ft_strlen(gnl_ret));
 		free(gnl_ret);
 	}
-	return (0);
+	close(tempfile);
+	tempfile = open(".tmpheredocz", O_RDONLY);
+	return (tempfile);
 }
 
-static int	no_heredoc(int argc, char **argv, char **envp)
+int	r_pipex(int argc, char **argv, char **envp)
 {
 	int		i;
 	t_pipex	pipex;
@@ -62,7 +61,7 @@ static int	no_heredoc(int argc, char **argv, char **envp)
 	i = 1;
 	init_pipex(&pipex, argc, argv, envp);
 	run_first_cmd(&pipex, envp);
-	while (i < argc - 4)
+	while (i < argc - 4 - pipex.here_doc)
 		run_n_cmd(&pipex, envp, i++);
 	run_last_cmd(&pipex, envp, i);
 	if (pipex.infile_fd != -1)

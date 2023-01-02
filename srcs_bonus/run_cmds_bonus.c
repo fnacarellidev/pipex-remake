@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:17:06 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/30 15:42:04 by fnacarel         ###   ########.fr       */
+/*   Updated: 2023/01/02 14:52:59 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/pipex_bonus.h"
@@ -86,6 +86,8 @@ void	run_last_cmd(t_pipex *pipex, char **envp, int i)
 		close(pipex->kernel_fd[i - 1][0]);
 		execve(pipex->program_path[i], pipex->commands[i], envp);
 	}
+	if (pipex->here_doc)
+		unlink(".tmpheredocz");
 	close(pipex->kernel_fd[i - 1][0]);
 }
 

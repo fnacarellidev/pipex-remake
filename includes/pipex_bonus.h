@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 15:58:54 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/30 18:55:18 by fnacarel         ###   ########.fr       */
+/*   Updated: 2023/01/02 14:48:42 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef	PIPEX_BONUS_H
@@ -25,6 +25,7 @@ typedef struct s_pipex
 	int		outfile_fd;
 	int		kernel_fd[128][2];
 	int		n_cmds;
+	int		here_doc;
 	char	*path_env;
 	char	**program_path;
 	char	***commands;
@@ -38,5 +39,6 @@ void	init_pipex(t_pipex *pipex, int argc, char **argv, char **envp);
 void	run_first_cmd(t_pipex *pipex, char **envp);
 void	run_n_cmd(t_pipex *pipex, char **envp, int i);
 void	run_last_cmd(t_pipex *pipex, char **envp, int i);
+int		copy_stdin_to_tmpfile(char **argv);
 
 #endif

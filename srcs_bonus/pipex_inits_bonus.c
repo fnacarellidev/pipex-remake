@@ -6,7 +6,7 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:02:32 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/30 14:16:12 by fnacarel         ###   ########.fr       */
+/*   Updated: 2023/01/02 14:49:16 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/pipex_bonus.h"
@@ -18,8 +18,20 @@ static void	where_is(char **splitted_path, t_pipex *pipex, int i);
 
 void	init_pipex(t_pipex *pipex, int argc, char **argv, char **envp)
 {
-	pipex->n_cmds = argc - 3;
-	pipex->infile_fd = open(argv[1], O_RDONLY);
+	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
+		pipex->here_doc = 1;
+	else
+		pipex->here_doc = 0;
+	if (pipex->here_doc)
+	{
+		pipex->n_cmds = argc - 4;
+		pipex->infile_fd = copy_stdin_to_tmpfile(argv);
+	}
+	else
+	{
+		pipex->n_cmds = argc - 3;
+		pipex->infile_fd = open(argv[1], O_RDONLY);
+	}
 	pipex->outfile_fd = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC,
 			0644);
 	if (pipex->outfile_fd == -1)
@@ -107,11 +119,11 @@ static void	set_cmds(t_pipex *pipex, char **argv)
 	while (i < pipex->n_cmds)
 	{
 		j = 0;
-		if (ft_strchr(argv[2 + i], '\''))
-			treat_quotes(argv[2 + i], &(pipex->commands[i]));
+		if (ft_strchr(argv[2 + i + pipex->here_doc], '\''))
+			treat_quotes(argv[2 + i + pipex->here_doc], &(pipex->commands[i]));
 		else
 		{
-			split = ft_split(argv[2 + i], ' ');
+			split = ft_split(argv[2 + i + pipex->here_doc], ' ');
 			split_len = ft_count_matrix((void **)split);
 			pipex->commands[i] = ft_calloc(sizeof(char *), split_len + 1);
 			while (split[j] != NULL)
