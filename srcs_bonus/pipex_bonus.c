@@ -6,11 +6,10 @@
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 14:13:45 by fnacarel          #+#    #+#             */
-/*   Updated: 2023/01/02 14:50:29 by fnacarel         ###   ########.fr       */
+/*   Updated: 2023/01/02 14:59:27 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/pipex_bonus.h"
-#include <unistd.h>
 
 static void	print_not_found_cmds(t_pipex pipex);
 static int	r_pipex(int argc, char **argv, char **envp);

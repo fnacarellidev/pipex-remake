@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   treat_quotes.c                                     :+:      :+:    :+:   */
+/*   treat_quotes_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fnacarel <fnacarel@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 22:49:36 by fnacarel          #+#    #+#             */
-/*   Updated: 2022/12/29 13:59:20 by fnacarel         ###   ########.fr       */
+/*   Updated: 2023/01/02 14:59:46 by fnacarel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../includes/pipex.h"
+#include "../includes/pipex_bonus.h"
 
 static void	remove_single_quotes(char **commands);
 static void	fix_splitted_string(char **splitted_str, char char_to_fix);
